@@ -49,11 +49,14 @@ javascript:(async function() {
 
   let cursor;
   const members = [];
+  const apiToken = window.slackDebug[
+    window.slackDebug.activeTeamId
+  ].redux.getState().bootData.api_token;
   do {
     const cursorParam = cursor
       ? `&cursor=${window.encodeURIComponent(cursor)}`
       : '';
-    const url = `/api/users.list?token=${boot_data.api_token}` +
+    const url = `/api/users.list?token=${apiToken}` +
       `&limit=${PAGE_SIZE}${cursorParam}`;
     const resp = await window.fetch(url);
     if (resp.status !== 200) {
