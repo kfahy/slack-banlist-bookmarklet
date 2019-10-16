@@ -78,6 +78,10 @@ javascript:(async function() {
   const newActiveUsernames = [];
   const now = Date.now();
   for (const user of members) {
+    if (user.is_bot || user.is_workflow_bot) {
+      continue;
+    }
+
     if (user.deleted && !bannedUsers.has(user.name)) {
       newBannedUsernames.push(user.name);
       bannedUsers.set(user.name, apiUserToLocalUser(user, now));
